@@ -3,6 +3,8 @@ package com.qianqiangongzi.utils;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
@@ -12,6 +14,17 @@ import com.alibaba.fastjson.JSONObject;
  * @author 谦谦公子爱编程
  */
 public class JsonValueReplaceUtils {
+
+	public static void main(String[] args) {
+		String jsonStr = "{\"name\":\"谦谦公子?\",\"age\":25,\"gender\":\"男\"}";
+
+		JSONObject jsonObj = JSON.parseObject(jsonStr);
+
+		replaceValue(jsonObj);
+
+		System.out.println(jsonObj.toJSONString());
+	}
+
 	/**
 	 * 转义json字符串里面的value的特殊字符，key不用管
 	 * 
@@ -50,13 +63,12 @@ public class JsonValueReplaceUtils {
 	 * @return
 	 */
 	public static String escapeQueryChars(String s) {
-		if (s == null) {
+		if (StringUtils.isBlank(s)) {
 			return s;
 		}
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < s.length(); i++) {
 			char c = s.charAt(i);
-			// These characters are part of the query syntax and must be escaped
 			if (c == '\\' || c == '+' || c == '-' || c == '!' || c == '(' || c == ')' || c == ':' || c == '^'
 					|| c == '[' || c == ']' || c == '\"' || c == '{' || c == '}' || c == '~' || c == '*' || c == '?'
 					|| c == '|' || c == '&' || c == ';' || c == '/' || c == '.' || c == '$'
@@ -67,4 +79,5 @@ public class JsonValueReplaceUtils {
 		}
 		return sb.toString();
 	}
+
 }
